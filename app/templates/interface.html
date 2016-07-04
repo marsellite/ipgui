@@ -1,0 +1,72 @@
+
+
+	<!-- top navbar -->
+	<div class="container">
+		<div class="row row-offcanvas row-offcanvas-left">
+
+			<!-- sidebar -->
+			<div class="col-xs-6 col-sm-3 sidebar-offcanvas" id="sidebar" role="navigation">
+				<ul class="nav navbar-nav">
+					<li ng-repeat="view in views" ng-click="click(view)" ng-class="{active: view.name == active.name}">
+						<a href="#interface">{{view.$["name"]}}</a>
+					</li>
+				</ul>
+			</div>
+
+			<!-- main area -->
+			<div class="col-xs-12 col-sm-9">
+				<div ng-repeat="g in active.group" ng-show='g.$["show"]?userConfig[g.$["show"]]:true'>
+					<h3>{{g.$["name"]}}</h3>
+					<p>{{g.description[0]}}</p>
+					<form class="form-horizontal well">
+						<div ng-repeat='cntl in g.setting'>
+							<!-- Text input-->
+							<div class="form-group"  ng-if='cntl.$["display"]=="input"' ng-show='cntl.$["show"]?userConfig[cntl.$["show"]]:true'>
+								<label for='{{cntl.$["name"]}}' class="col-sm-2 control-label">{{cntl.$["name"]}}</label>
+								<div class="col-sm-10">
+									<input type="text" ng-model='userConfig[cntl.$["id"]]' class="form-control" placeholder='{{cntl.$["default"]}}'>
+								</div>
+							</div>
+
+							<!-- radio-->
+							<div class="form-group" ng-if='cntl.$["display"]=="radius"' ng-show='cntl.$["show"]?userConfig[cntl.$["show"]]:true'>
+								<label class="col-sm-2 control-label">{{cntl.$["name"]}}</label>
+								<div class="col-sm-10">
+									<div class="radio" ng-repeat='lab in parseList(cntl.$["values"])'>
+										<label>
+											<input type="radio" ng-model='userConfig[cntl.$["id"]]' value="{{lab}}" checked>
+											{{lab}}
+										</label>
+									</div>
+								</div>
+							</div>
+							
+							<!-- dropbox-->
+							<div class="form-group" ng-if='cntl.$["display"]=="dropbox"' ng-show='cntl.$["show"]?userConfig[cntl.$["show"]]:true'>
+								<label for={{cntl.$["name"]}} class="col-sm-2 control-label">{{cntl.$["name"]}}</label>
+								<div class="col-sm-10">
+									<select class="form-control" ng-model='userConfig[cntl.$["id"]]'>
+										<option ng-repeat='lab in parseList(cntl.$["values"])'>{{lab}}</option>
+									</select>
+								</div>
+							</div>
+							
+							<!-- checkbox-->
+							<div class="form-group" ng-if='cntl.$["display"]=="checkbox"' ng-show='cntl.$["show"]?userConfig[cntl.$["show"]]:true'>
+								<label for={{cntl.$["name"]}} class="col-sm-2 control-label">{{cntl.$["name"]}}</label>
+								<div class="col-sm-10">
+									<div class="checkbox">
+										<label>
+                      <input type="checkbox" ng-model='userConfig[cntl.$["id"]]' /> 
+										</label>
+									</div>
+								</div>
+							</div>
+
+						</div>
+					</form>
+				</div>
+			</div><!-- /.col-xs-12 main -->
+
+		</div><!--/.row-->
+	</div><!--/.container-->

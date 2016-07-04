@@ -1,0 +1,23 @@
+	<div class="jumbotron">
+		<h1>IP Metadata</h1>
+		<p class="lead">Ip metadata is an xml file which defines IP interface and the elements for configuring the IP.</p>
+		<form>
+			<div class="form-group">
+				<label class="btn btn-default btn-lg">
+					Select Xml file<input type="file" style="display: none;" ng-model="selectfile" bind-ng-model-on-change/>
+				</label>
+				<span>{{selectfile}}</span>
+			</div>
+			
+			<!--div class="alert alert-info" role="alert">{{selectfile}}</div-->
+		<!-- div class="fileinput fileinput-new" data-provides="fileinput">
+    	<span class="btn btn-success btn-file">
+    	<span>Choose file</span>
+    	<input type="file" /></span>
+    	<span class="fileinput-filename"></span>
+    	<span class="fileinput-new">No file chosen</span>
+		</div-->
+			<a class="btn btn-success btn-lg" href="#interface">Generate IP UI</a>
+		<form>
+	</div>
+

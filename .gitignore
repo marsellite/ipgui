@@ -1,0 +1,5 @@
+*.bak
+*~
+*.sw*
+node_modules
+
