@@ -44344,6 +44344,11 @@ controller('ipgui', ['$scope', 'metadata', function($scope, metadata) {
 		return true;
 	}
 	
+	$scope.isActive = function(view){
+		var ret = $scope.active.$["name"] == view.$["name"];
+		return ret;
+	}
+	
 	$scope.disableMe = function(cntl){
 		var ret =false;
 		if( "disable_id" in cntl.$){
@@ -44412,7 +44417,7 @@ require("./directives");
 require("./services");
 require("./controllers");
 
-}).call(this,require("VCmEsw"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/fake_e03b46dc.js","/")
+}).call(this,require("VCmEsw"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/fake_903c9671.js","/")
 },{"./controllers":166,"./directives":167,"./services":169,"VCmEsw":10,"angular":4,"angular-route":2,"buffer":5}],169:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 var angular = require("angular");

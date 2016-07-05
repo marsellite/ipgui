@@ -70,6 +70,11 @@ controller('ipgui', ['$scope', 'metadata', function($scope, metadata) {
 		return true;
 	}
 	
+	$scope.isActive = function(view){
+		var ret = $scope.active.$["name"] == view.$["name"];
+		return ret;
+	}
+	
 	$scope.disableMe = function(cntl){
 		var ret =false;
 		if( "disable_id" in cntl.$){
