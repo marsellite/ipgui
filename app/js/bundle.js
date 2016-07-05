@@ -44312,7 +44312,7 @@ controller('ipgui', ['$scope', 'metadata', function($scope, metadata) {
 						if(setting.$["display"] == "checkbox"){
 							$scope.userConfig[setting.$["id"]] =  false;
 						}
-						else if(setting.$["display"] == "dropbox" || setting.$["display"] == "radius"){
+						else if(setting.$["display"] == "dropbox" || setting.$["display"] == "radius" || setting.$["display"] == "radius-inline"){
 							$scope.userConfig[setting.$["id"]] =  $scope.parseList(setting.$["values"])[0];
 						}
 					}
@@ -44395,7 +44395,7 @@ require("./directives");
 require("./services");
 require("./controllers");
 
-}).call(this,require("VCmEsw"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/fake_73e24c57.js","/")
+}).call(this,require("VCmEsw"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/fake_a742032.js","/")
 },{"./controllers":166,"./directives":167,"./services":169,"VCmEsw":10,"angular":4,"angular-route":2,"buffer":5}],169:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 var angular = require("angular");

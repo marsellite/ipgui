@@ -41,6 +41,19 @@
 								</div>
 							</div>
 							
+							<!-- radio-->
+							<div class="form-group" ng-if='cntl.$["display"]=="radius-inline"' ng-show='cntl.$["show"]?userConfig[cntl.$["show"]]:true'>
+								<label class="col-sm-2 control-label">{{cntl.$["name"]}}</label>
+								<div class="col-sm-10">
+									<div class="radio-inline" ng-repeat='lab in parseList(cntl.$["values"])'>
+										<label>
+											<input type="radio" ng-model='userConfig[cntl.$["id"]]' value="{{lab}}" checked>
+											{{lab}}
+										</label>
+									</div>
+								</div>
+							</div>
+							
 							<!-- dropbox-->
 							<div class="form-group" ng-if='cntl.$["display"]=="dropbox"' ng-show='cntl.$["show"]?userConfig[cntl.$["show"]]:true'>
 								<label for={{cntl.$["name"]}} class="col-sm-2 control-label">{{cntl.$["name"]}}</label>

@@ -38,7 +38,7 @@ controller('ipgui', ['$scope', 'metadata', function($scope, metadata) {
 						if(setting.$["display"] == "checkbox"){
 							$scope.userConfig[setting.$["id"]] =  false;
 						}
-						else if(setting.$["display"] == "dropbox" || setting.$["display"] == "radius"){
+						else if(setting.$["display"] == "dropbox" || setting.$["display"] == "radius" || setting.$["display"] == "radius-inline"){
 							$scope.userConfig[setting.$["id"]] =  $scope.parseList(setting.$["values"])[0];
 						}
 					}
