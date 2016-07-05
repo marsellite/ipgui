@@ -44302,12 +44302,14 @@ controller('ipgui', ['$scope', 'metadata', function($scope, metadata) {
 				for( var k=0; k<group.setting.length; k++){
 					var setting =group.setting[k];
 					if( "default" in setting.$ )
-						if( setting.$["default"] == "true" )
-							$scope.userConfig[setting.$["id"]] =  true;						
-						else if(setting.$["default"] == "false" )
-							$scope.userConfig[setting.$["id"]] =  false;						
-						else
-							$scope.userConfig[setting.$["id"]] =  setting.$["default"];
+							if( setting.$["display"] == "checkbox"){
+								if(setting.$["default"] == "true")
+									$scope.userConfig[setting.$["id"]] = true;
+								else if(setting.$["default"] == "false")
+									$scope.userConfig[setting.$["id"]] = true;
+							}
+							else
+								$scope.userConfig[setting.$["id"]] =  setting.$["default"];
 					else{
 						if(setting.$["display"] == "checkbox"){
 							$scope.userConfig[setting.$["id"]] =  false;
@@ -44333,6 +44335,21 @@ controller('ipgui', ['$scope', 'metadata', function($scope, metadata) {
 	}
 	$scope.parseList = function(str){
 		return str.split(" ");
+	}
+	
+	$scope.showMe = function(cntl){
+		if( "show_id" in cntl.$){
+			return $scope.userConfig[cntl.$["show_id"]].toString() == cntl.$["show_value"]
+		}
+		return true;
+	}
+	
+	$scope.disableMe = function(cntl){
+		var ret =false;
+		if( "disable_id" in cntl.$){
+			ret = $scope.userConfig[cntl.$["disable_id"]].toString() == cntl.$["disable_value"]
+		}
+		return ret;
 	}
 
 	$scope.refreshpage = function (id){
@@ -44395,7 +44412,7 @@ require("./directives");
 require("./services");
 require("./controllers");
 
-}).call(this,require("VCmEsw"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/fake_a742032.js","/")
+}).call(this,require("VCmEsw"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/fake_e03b46dc.js","/")
 },{"./controllers":166,"./directives":167,"./services":169,"VCmEsw":10,"angular":4,"angular-route":2,"buffer":5}],169:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 var angular = require("angular");

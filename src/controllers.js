@@ -28,12 +28,14 @@ controller('ipgui', ['$scope', 'metadata', function($scope, metadata) {
 				for( var k=0; k<group.setting.length; k++){
 					var setting =group.setting[k];
 					if( "default" in setting.$ )
-						if( setting.$["default"] == "true" )
-							$scope.userConfig[setting.$["id"]] =  true;						
-						else if(setting.$["default"] == "false" )
-							$scope.userConfig[setting.$["id"]] =  false;						
-						else
-							$scope.userConfig[setting.$["id"]] =  setting.$["default"];
+							if( setting.$["display"] == "checkbox"){
+								if(setting.$["default"] == "true")
+									$scope.userConfig[setting.$["id"]] = true;
+								else if(setting.$["default"] == "false")
+									$scope.userConfig[setting.$["id"]] = true;
+							}
+							else
+								$scope.userConfig[setting.$["id"]] =  setting.$["default"];
 					else{
 						if(setting.$["display"] == "checkbox"){
 							$scope.userConfig[setting.$["id"]] =  false;
@@ -59,6 +61,21 @@ controller('ipgui', ['$scope', 'metadata', function($scope, metadata) {
 	}
 	$scope.parseList = function(str){
 		return str.split(" ");
+	}
+	
+	$scope.showMe = function(cntl){
+		if( "show_id" in cntl.$){
+			return $scope.userConfig[cntl.$["show_id"]].toString() == cntl.$["show_value"]
+		}
+		return true;
+	}
+	
+	$scope.disableMe = function(cntl){
+		var ret =false;
+		if( "disable_id" in cntl.$){
+			ret = $scope.userConfig[cntl.$["disable_id"]].toString() == cntl.$["disable_value"]
+		}
+		return ret;
 	}
 
 	$scope.refreshpage = function (id){
