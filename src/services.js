@@ -24,8 +24,8 @@ angular
 		reader.onload = function(e){
 			var parser = new xml2js.Parser();
 			parser.parseString(e.target.result, function (err, result) {
-				//console.log( JSON.stringify(result, null, 2));
-				d.resolve(result.ip.view);
+				console.log( JSON.stringify(result, null, 2));
+				d.resolve(result.ip);
 			});
 		};
 		reader.onerror = function(e){
