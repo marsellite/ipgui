@@ -22,10 +22,10 @@ controller('ipgui', ['$scope', 'metadata', function($scope, metadata) {
 		$scope.settings = result.config[0].setting;
 		$scope.active = $scope.views[0];
 		$scope.ports = result.interface[0].port;
-		
+
 		for(var i=0 ; i< $scope.ports.length; i++)
-			console.log($scope.ports[i]);
-		
+		console.log($scope.ports[i]);
+
 
 		function findSetting(name){
 			for( var i =0; i < $scope.settings.length; i++){
@@ -62,11 +62,14 @@ controller('ipgui', ['$scope', 'metadata', function($scope, metadata) {
 				for( var i=0; i<$scope.views.length; i++){
 					var view = $scope.views[i];
 					for( var j=0; j<view.group.length; j++){
-						var group = view.group[j];
-						for( var k=0; k<group.element.length; k++){
-							var gui_elem = group.element[k];
-							gui_elem["setting"] = findSetting(gui_elem.$["ref"]);
+						var group_out = view.group[j];
+						for( var n=0; n<group_out.group.length; n++){
+							var group = group_out.group[n];
+							for( var k=0; k<group.element.length; k++){
+								var gui_elem = group.element[k];
+								gui_elem["setting"] = findSetting(gui_elem.$["ref"]);
 
+							}
 						}
 					}
 				}
@@ -92,35 +95,35 @@ controller('ipgui', ['$scope', 'metadata', function($scope, metadata) {
 				}
 				return true;
 			}
-			
-			$scope.getRange = function(port, which){				
-					if( which in port.$){
-						if( port.$[which] in $scope.userConfig)
-							return $scope.userConfig[port.$[which]]
-						else
-							return port.$[which]
+
+			$scope.getRange = function(port, which){
+				if( which in port.$){
+					if( port.$[which] in $scope.userConfig)
+					return $scope.userConfig[port.$[which]]
+					else
+						return port.$[which]
 					}
-					return "NA"				
-			}
-
-			$scope.isActive = function(view){
-				var ret = $scope.active.$["name"] == view.$["name"];
-				return ret;
-			}
-
-			$scope.disableMe = function(cntl){
-				var ret =false;
-				if( "disable_id" in cntl.$){
-					ret = $scope.userConfig[cntl.$["disable_id"]].toString() == cntl.$["disable_value"]
+					return "NA"
 				}
-				return ret;
-			}
 
-			$scope.refreshpage = function (id){
-				//$scope.$apply();
-				//$scope.userConfig[id] = true;
-				console.log($scope.userConfig);
+				$scope.isActive = function(view){
+					var ret = $scope.active.$["name"] == view.$["name"];
+					return ret;
+				}
 
-			}
+				$scope.disableMe = function(cntl){
+					var ret =false;
+					if( "disable_id" in cntl.$){
+						ret = $scope.userConfig[cntl.$["disable_id"]].toString() == cntl.$["disable_value"]
+					}
+					return ret;
+				}
 
-		}]);
+				$scope.refreshpage = function (id){
+					//$scope.$apply();
+					//$scope.userConfig[id] = true;
+					console.log($scope.userConfig);
+
+				}
+
+			}]);

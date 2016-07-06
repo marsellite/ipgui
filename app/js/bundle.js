@@ -44336,12 +44336,15 @@ controller('ipgui', ['$scope', 'metadata', function($scope, metadata) {
 				for( var i=0; i<$scope.views.length; i++){
 					var view = $scope.views[i];
 					for( var j=0; j<view.group.length; j++){
-						var group = view.group[j];
+						var group_out = view.group[j];
+						for( var n=0; n<group_out.group.length; n++){
+							var group = group_out.group[n];
 						for( var k=0; k<group.element.length; k++){
 							var gui_elem = group.element[k];
 							gui_elem["setting"] = findSetting(gui_elem.$["ref"]);
 
 						}
+					}
 					}
 				}
 
@@ -44450,7 +44453,7 @@ require("./directives");
 require("./services");
 require("./controllers");
 
-}).call(this,require("VCmEsw"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/fake_44ce0349.js","/")
+}).call(this,require("VCmEsw"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/fake_e62d7ced.js","/")
 },{"./controllers":166,"./directives":167,"./services":169,"VCmEsw":10,"angular":4,"angular-route":2,"buffer":5}],169:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 var angular = require("angular");

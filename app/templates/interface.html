@@ -47,71 +47,80 @@
 			</div>
 			<!-- main area -->
 			<div class="col-xs-8 col-sm-8">
-				<div ng-repeat="g in active.group" ng-show='showMe(g)' class="panel panel-primary">
+				<div ng-repeat="g_out in active.group" ng-show='showMe(g_out)' class="panel panel-primary">
 					<div class="panel-heading">
-						<h3>{{g.$["name"]}}</h3>
-						<p>{{g.description[0]}}</p>
+						<h3>{{g_out.$["name"]}}</h3>
+						<p>{{g_out.description[0]}}</p>
 					</div>
-					<form class="form-horizontal" class="panel-body">
-						<div ng-repeat='cntl in g.element'>
-							<!-- Text input-->
-							<div class="form-group"  ng-if='cntl.setting.$["gui"]=="input"' ng-show='showMe(cntl)'>
-								<label for='{{cntl.setting.$["id"]}}' class="col-sm-5 control-label">{{cntl.setting.$["display"]}}</label>
-								<div class="col-sm-5">
-									<input type="text" ng-model='userConfig[cntl.$["ref"]]' class="form-control" placeholder='{{cntl.setting.$["default"]}}' ng-class="{disabled: disableMe(cntl)}">
-								</div>
+					<div class="panel-body">
+						<div ng-repeat="g in g_out.group" ng-show='showMe(g)'>
+							<div>
+								<p class="lead text-center">{{g.$["name"]}}</p>								
 							</div>
+							<div class="well">
+								<form class="form-horizontal" class="well">
+									<div ng-repeat='cntl in g.element'>
+										<!-- Text input-->
+										<div class="form-group"  ng-if='cntl.setting.$["gui"]=="input"' ng-show='showMe(cntl)'>
+											<label for='{{cntl.setting.$["id"]}}' class="col-sm-5 control-label">{{cntl.setting.$["display"]}}</label>
+											<div class="col-sm-5">
+												<input type="text" ng-model='userConfig[cntl.$["ref"]]' class="form-control" placeholder='{{cntl.setting.$["default"]}}' ng-class="{disabled: disableMe(cntl)}">
+											</div>
+										</div>
 
-							<!-- radio-->
-							<div class="form-group" ng-if='cntl.setting.$["gui"]=="radius"' ng-show='showMe(cntl)'>
-								<label class="col-sm-5 control-label">{{cntl.setting.$["display"]}}</label>
-								<div class="col-sm-5">
-									<div class="radio" ng-repeat='lab in parseList(cntl.setting.$["values"])' ng-class="{disabled: disableMe(cntl)}">
-										<label>
-											<input type="radio" ng-model='userConfig[cntl.$["ref"]]' value="{{lab}}" checked>
-											{{lab}}
-										</label>
+										<!-- radio-->
+										<div class="form-group" ng-if='cntl.setting.$["gui"]=="radius"' ng-show='showMe(cntl)'>
+											<label class="col-sm-5 control-label">{{cntl.setting.$["display"]}}</label>
+											<div class="col-sm-5">
+												<div class="radio" ng-repeat='lab in parseList(cntl.setting.$["values"])' ng-class="{disabled: disableMe(cntl)}">
+													<label>
+														<input type="radio" ng-model='userConfig[cntl.$["ref"]]' value="{{lab}}" checked>
+														{{lab}}
+													</label>
+												</div>
+											</div>
+										</div>
+
+										<!-- radio-->
+										<div class="form-group" ng-if='cntl.setting.$["gui"]=="radius-inline"' ng-show='showMe(cntl)'>
+											<label class="col-sm-5 control-label">{{cntl.setting.$["display"]}}</label>
+											<div class="col-sm-5">
+												<div class="radio-inline" ng-repeat='lab in parseList(cntl.setting.$["values"])' ng-class="{disabled: disableMe(cntl)}">
+													<label>
+														<input type="radio" ng-model='userConfig[cntl.$["ref"]]' value="{{lab}}" checked>
+														{{lab}}
+													</label>
+												</div>
+											</div>
+										</div>
+
+										<!-- dropbox-->
+										<div class="form-group" ng-if='cntl.setting.$["gui"]=="dropbox"' ng-show='showMe(cntl)'>
+											<label for={{cntl.setting.$["id"]}} class="col-sm-5 control-label">{{cntl.setting.$["display"]}}</label>
+											<div class="col-sm-5">
+												<select class="form-control" ng-model='userConfig[cntl.$["ref"]]' ng-class="{disabled: disableMe(cntl)}">
+													<option ng-repeat='lab in parseList(cntl.setting.$["values"])'>{{lab}}</option>
+												</select>
+											</div>
+										</div>
+
+										<!-- checkbox-->
+										<div class="form-group" ng-if='cntl.setting.$["gui"]=="checkbox"' ng-show='showMe(cntl)' >
+											<label for={{cntl.setting.$["id"]}} class="col-sm-5 control-label">{{cntl.setting.$["display"]}}</label>
+											<div class="col-sm-5">
+												<div class="checkbox" >
+													<label>
+														<input type="checkbox" ng-model='userConfig[cntl.$["ref"]]' ng-class="{disabled: disableMe(cntl)}"/>
+													</label>
+												</div>
+											</div>
+										</div>
+
 									</div>
-								</div>
+								</form>
 							</div>
-
-							<!-- radio-->
-							<div class="form-group" ng-if='cntl.setting.$["gui"]=="radius-inline"' ng-show='showMe(cntl)'>
-								<label class="col-sm-5 control-label">{{cntl.setting.$["display"]}}</label>
-								<div class="col-sm-5">
-									<div class="radio-inline" ng-repeat='lab in parseList(cntl.setting.$["values"])' ng-class="{disabled: disableMe(cntl)}">
-										<label>
-											<input type="radio" ng-model='userConfig[cntl.$["ref"]]' value="{{lab}}" checked>
-											{{lab}}
-										</label>
-									</div>
-								</div>
-							</div>
-
-							<!-- dropbox-->
-							<div class="form-group" ng-if='cntl.setting.$["gui"]=="dropbox"' ng-show='showMe(cntl)'>
-								<label for={{cntl.setting.$["id"]}} class="col-sm-5 control-label">{{cntl.setting.$["display"]}}</label>
-								<div class="col-sm-5">
-									<select class="form-control" ng-model='userConfig[cntl.$["ref"]]' ng-class="{disabled: disableMe(cntl)}">
-										<option ng-repeat='lab in parseList(cntl.setting.$["values"])'>{{lab}}</option>
-									</select>
-								</div>
-							</div>
-
-							<!-- checkbox-->
-							<div class="form-group" ng-if='cntl.setting.$["gui"]=="checkbox"' ng-show='showMe(cntl)' >
-								<label for={{cntl.setting.$["id"]}} class="col-sm-5 control-label">{{cntl.setting.$["display"]}}</label>
-								<div class="col-sm-5">
-									<div class="checkbox" >
-										<label>
-											<input type="checkbox" ng-model='userConfig[cntl.$["ref"]]' ng-class="{disabled: disableMe(cntl)}"/>
-										</label>
-									</div>
-								</div>
-							</div>
-
 						</div>
-					</form>
+					</div>
 				</div>
 			</div><!-- /.col-xs-12 main -->
 
