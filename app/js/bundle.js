@@ -44289,6 +44289,8 @@ controller('ipgui', ['$scope', 'metadata', function($scope, metadata) {
 	$scope.active= {};
 	$scope.userConfig = {};
 	$scope.ports =[];
+	$scope.inputcnt =0;
+	$scope.outputcnt =0;
 
 	var init = function(result)
 	{
@@ -44296,10 +44298,11 @@ controller('ipgui', ['$scope', 'metadata', function($scope, metadata) {
 		$scope.settings = result.config[0].setting;
 		$scope.active = $scope.views[0];
 		$scope.ports = result.interface[0].port;
-		
+		$scope.configFile = result.$["name"]+".cfg"
+
 		for(var i=0 ; i< $scope.ports.length; i++)
-			console.log($scope.ports[i]);
-		
+		console.log($scope.ports[i]);
+
 
 		function findSetting(name){
 			for( var i =0; i < $scope.settings.length; i++){
@@ -44339,12 +44342,12 @@ controller('ipgui', ['$scope', 'metadata', function($scope, metadata) {
 						var group_out = view.group[j];
 						for( var n=0; n<group_out.group.length; n++){
 							var group = group_out.group[n];
-						for( var k=0; k<group.element.length; k++){
-							var gui_elem = group.element[k];
-							gui_elem["setting"] = findSetting(gui_elem.$["ref"]);
+							for( var k=0; k<group.element.length; k++){
+								var gui_elem = group.element[k];
+								gui_elem["setting"] = findSetting(gui_elem.$["ref"]);
 
+							}
 						}
-					}
 					}
 				}
 
@@ -44369,38 +44372,48 @@ controller('ipgui', ['$scope', 'metadata', function($scope, metadata) {
 				}
 				return true;
 			}
-			
-			$scope.getRange = function(port, which){				
-					if( which in port.$){
-						if( port.$[which] in $scope.userConfig)
-							return $scope.userConfig[port.$[which]]
-						else
-							return port.$[which]
+
+			$scope.getRange = function(port, which){
+				if( which in port.$){
+					if( port.$[which] in $scope.userConfig)
+					return $scope.userConfig[port.$[which]]
+					else
+						return port.$[which]
 					}
-					return "NA"				
-			}
-
-			$scope.isActive = function(view){
-				var ret = $scope.active.$["name"] == view.$["name"];
-				return ret;
-			}
-
-			$scope.disableMe = function(cntl){
-				var ret =false;
-				if( "disable_id" in cntl.$){
-					ret = $scope.userConfig[cntl.$["disable_id"]].toString() == cntl.$["disable_value"]
+					return "NA"
 				}
-				return ret;
-			}
 
-			$scope.refreshpage = function (id){
-				//$scope.$apply();
-				//$scope.userConfig[id] = true;
-				console.log($scope.userConfig);
+				$scope.isActive = function(view){
+					var ret = $scope.active.$["name"] == view.$["name"];
+					return ret;
+				}
 
-			}
+				$scope.disableMe = function(cntl){
+					var ret =false;
+					if( "disable_id" in cntl.$){
+						ret = $scope.userConfig[cntl.$["disable_id"]].toString() == cntl.$["disable_value"]
+					}
+					return ret;
+				}
 
-		}]);
+				$scope.saveConfig = function () {
+					$scope.toJSON = '';
+					$scope.toJSON = JSON.stringify($scope.userConfig, 0, 2);
+					var blob = new Blob([$scope.toJSON], { type:"application/json;charset=utf-8;" });
+					var downloadLink = angular.element('<a></a>');
+					downloadLink.attr('href',window.URL.createObjectURL(blob));
+					downloadLink.attr('download', $scope.configFile);
+					downloadLink[0].click();
+				};
+
+				$scope.refreshpage = function (id){
+					//$scope.$apply();
+					//$scope.userConfig[id] = true;
+					console.log($scope.userConfig);
+
+				}
+
+			}]);
 
 }).call(this,require("VCmEsw"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/controllers.js","/")
 },{"VCmEsw":10,"angular":4,"buffer":5}],167:[function(require,module,exports){
@@ -44453,7 +44466,7 @@ require("./directives");
 require("./services");
 require("./controllers");
 
-}).call(this,require("VCmEsw"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/fake_e62d7ced.js","/")
+}).call(this,require("VCmEsw"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/fake_7c4f00c7.js","/")
 },{"./controllers":166,"./directives":167,"./services":169,"VCmEsw":10,"angular":4,"angular-route":2,"buffer":5}],169:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 var angular = require("angular");

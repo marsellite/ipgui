@@ -15,6 +15,8 @@ controller('ipgui', ['$scope', 'metadata', function($scope, metadata) {
 	$scope.active= {};
 	$scope.userConfig = {};
 	$scope.ports =[];
+	$scope.inputcnt =0;
+	$scope.outputcnt =0;
 
 	var init = function(result)
 	{
@@ -22,6 +24,7 @@ controller('ipgui', ['$scope', 'metadata', function($scope, metadata) {
 		$scope.settings = result.config[0].setting;
 		$scope.active = $scope.views[0];
 		$scope.ports = result.interface[0].port;
+		$scope.configFile = result.$["name"]+".cfg"
 
 		for(var i=0 ; i< $scope.ports.length; i++)
 		console.log($scope.ports[i]);
@@ -118,6 +121,16 @@ controller('ipgui', ['$scope', 'metadata', function($scope, metadata) {
 					}
 					return ret;
 				}
+
+				$scope.saveConfig = function () {
+					$scope.toJSON = '';
+					$scope.toJSON = JSON.stringify($scope.userConfig, 0, 2);
+					var blob = new Blob([$scope.toJSON], { type:"application/json;charset=utf-8;" });
+					var downloadLink = angular.element('<a></a>');
+					downloadLink.attr('href',window.URL.createObjectURL(blob));
+					downloadLink.attr('download', $scope.configFile);
+					downloadLink[0].click();
+				};
 
 				$scope.refreshpage = function (id){
 					//$scope.$apply();
